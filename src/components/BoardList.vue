@@ -35,10 +35,6 @@ const listCategory = computed(() => {
 </template>
 
 <style>
-.list {
-
-}
-
 #blue-list {
     background-color: #6FA3DA;
 }

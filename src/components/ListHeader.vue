@@ -11,11 +11,4 @@ defineProps({
 </template>
 
 <style scoped>
-.header {
-    color: #000000;
-    background-color: white;
-    text-align: center;
-    padding: 0.5em;
-    margin: 0;
-}
 </style>

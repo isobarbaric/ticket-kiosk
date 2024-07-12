@@ -16,7 +16,4 @@ const doneCards = cardData.filter(cardData => cardData.category === "Done")
 </template>
 
 <style>
-.board {
-  /* background-color: #D9D9D9 */
-}
 </style>

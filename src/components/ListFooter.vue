@@ -11,3 +11,6 @@ function addCard() {
         <button v-on:click="addCard">+ Add a card</button>
     </div>
 </template>
+
+<style scoped>
+</style>

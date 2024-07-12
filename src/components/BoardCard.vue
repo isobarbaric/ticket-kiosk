@@ -21,21 +21,12 @@ const cardCategory = computed(() => {
 
 <template>
     <div class="card" :id="cardCategory">
-        <div class="card-text">{{ text }}</div>
-        <div class="card-deadline">{{ deadline }}</div>
+        <div class="card-title">{{ text }}</div>
+        <div class="card-subtitle">{{ deadline }}</div>
     </div>
 </template>
 
 <style scoped>
-.card {
-    padding-left: 0.2em;
-    padding-right: 0.2em;
-    margin: 1em;
-    /* color: #C5C2C6; */
-    color: white;
-    /* font-weight: 800; */
-}
-
 #blue-card {
     background-color: #026BDE;
 }
@@ -46,9 +37,5 @@ const cardCategory = computed(() => {
 
 #green-card {
     background-color: #00A660;
-}
-
-.deadline {
-    font-size: 0.82em;  
 }
 </style>
