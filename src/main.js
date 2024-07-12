@@ -1,4 +1,4 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import Board from './KanbanBoard.vue'
 
-createApp(App).mount('#app')
+createApp(Board).mount('#app')
