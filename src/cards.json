@@ -1,12 +1,62 @@
 [
-    {"id": 1, "category": "To do", "text": "Buy groceries", "deadline": "01/30/24"},
-    {"id": 2, "category": "Doing", "text": "Throw out trash", "deadline": "03/03/24"},
-    {"id": 3, "category": "Done", "text": "Buy books", "deadline": "09/04/24"},
-    {"id": 4, "category": "To do", "text": "Complete assignment", "deadline": "02/15/24"},
-    {"id": 5, "category": "Doing", "text": "Wash the car", "deadline": "02/28/24"},
-    {"id": 6, "category": "Done", "text": "Call plumber", "deadline": "01/10/24"},
-    {"id": 7, "category": "To do", "text": "Plan vacation", "deadline": "04/20/24"},
-    {"id": 8, "category": "Doing", "text": "Organize office", "deadline": "03/12/24"},
-    {"id": 9, "category": "Done", "text": "Renew subscription", "deadline": "05/05/24"},
-    {"id": 10, "category": "To do", "text": "Schedule meeting", "deadline": "03/25/24"}
+    {
+        "id": 1,
+        "category": "To do",
+        "text": "Buy groceries",
+        "deadline": "01/30/24"
+    },
+    {
+        "id": 2,
+        "category": "Doing",
+        "text": "Throw out trash",
+        "deadline": "03/03/24"
+    },
+    {
+        "id": 3,
+        "category": "Done",
+        "text": "Buy books",
+        "deadline": "09/04/24"
+    },
+    {
+        "id": 4,
+        "category": "To do",
+        "text": "Complete assignment",
+        "deadline": "02/15/24"
+    },
+    {
+        "id": 5,
+        "category": "Doing",
+        "text": "Wash the car",
+        "deadline": "02/28/24"
+    },
+    {
+        "id": 6,
+        "category": "Done",
+        "text": "Call plumber",
+        "deadline": "01/10/24"
+    },
+    {
+        "id": 7,
+        "category": "To do",
+        "text": "Plan vacation",
+        "deadline": "04/20/24"
+    },
+    {
+        "id": 8,
+        "category": "Doing",
+        "text": "Organize office",
+        "deadline": "03/12/24"
+    },
+    {
+        "id": 9,
+        "category": "Done",
+        "text": "Renew subscription",
+        "deadline": "05/05/24"
+    },
+    {
+        "id": 10,
+        "category": "To do",
+        "text": "Schedule meeting",
+        "deadline": "03/25/24"
+    }
 ]
