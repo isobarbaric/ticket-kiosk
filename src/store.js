@@ -1,22 +1,26 @@
-import { ref, computed, watch, onMounted } from 'vue';
+// import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { defineStore } from 'pinia';
-// import cardData from './cards.json';
-import axios from 'axios';
+import cardData from './cards.json';
+// import axios from 'axios';
 
 export const useCardsStore = defineStore('kanban-cards', () => {
   // const cards = ref(cardData)
   // load cards from api
   // is this the right way to do this? (or should I use a lifecycle hook?)
-  const cards = ref([])
-  onMounted(async () => {
-    const cardData = await axios.get('http://127.0.0.1:3000/' + 'cards/')
-      .then(response => response.data)
-      .catch(error => {
-        console.error('error fetching cards', error)
-        // return []
-      })
-    cards.value = cardData
-  })
+
+  // const cards = ref([])
+  // onMounted(async () => {
+  //   const cardData = await axios.get('http://127.0.0.1:3000/' + 'cards/')
+  //     .then(response => response.data)
+  //     .catch(error => {
+  //       console.error('error fetching cards', error)
+  //       // return []
+  //     })
+  //   cards.value = cardData
+  // })
+
+  const cards = ref(cardData)
 
   // computed properties
   const todoCards = computed(() => cards.value.filter(card => card.category === "To do"))
@@ -46,22 +50,12 @@ export const useCardsStore = defineStore('kanban-cards', () => {
   //   cards.value = cards.value.filter(card => card.id !== id)
   // }
 
+  // TODO: send to a database instead of local storage
   // watch for changes in cards and save when cards list changes
   watch(cards.value, () => {
     console.log('saving cards...', cards.value)
-    // TODO: send to a database instead of local storage
     try {
-      // localStorage.setItem('cards', JSON.stringify(cards.value));
-      const data = JSON.stringify(cards.value)
-      const blob = new Blob([data], {type: 'text/plain'})
-      const e = document.createEvent('MouseEvents'),
-      a = document.createElement('a');
-      a.download = "test.json";
-      a.href = window.URL.createObjectURL(blob);
-      a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
-      e.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-      a.dispatchEvent(e);
-
+      localStorage.setItem('cards', JSON.stringify(cards.value));
       console.log('cards successfully saved');
     } catch (error) {
       console.error('error saving cards', error);
