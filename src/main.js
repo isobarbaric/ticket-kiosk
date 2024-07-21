@@ -1,4 +1,9 @@
 import { createApp } from 'vue'
-import Board from './KanbanBoard.vue'
+import { createPinia } from 'pinia'
+import KanbanBoard from './KanbanBoard.vue'
 
-createApp(Board).mount('#app')
+const pinia = createPinia()
+const app = createApp(KanbanBoard)
+
+app.use(pinia)
+app.mount('#app')

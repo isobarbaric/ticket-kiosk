@@ -1,12 +1,17 @@
 <script setup>
-function addCard() {
-  console.log("card added");
+import { useCardsStore } from '../store';
+
+const store = useCardsStore();
+// const { cards } = storeToRefs(store);
+
+function createCard() {
+  console.log(store.cardLength)
 }
 </script>
 
 <template>
   <div class="footer">
-    <button v-on:click="addCard">+ Add a card</button>
+    <button v-on:click="createCard">+ Add a card</button>
   </div>
 </template>
 

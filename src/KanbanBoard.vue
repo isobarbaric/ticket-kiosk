@@ -1,10 +1,10 @@
 <script setup>
-import cardData from "./cards.json";
 import BoardList from "./components/BoardList.vue";
+import { useCardsStore } from './store';
+import { storeToRefs } from 'pinia'
 
-const todoCards = cardData.filter((cardData) => cardData.category === "To do");
-const doingCards = cardData.filter((cardData) => cardData.category === "Doing");
-const doneCards = cardData.filter((cardData) => cardData.category === "Done");
+const store = useCardsStore();
+const { todoCards, doingCards, doneCards } = storeToRefs(store)
 </script>
 
 <template>
