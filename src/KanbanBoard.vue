@@ -8,10 +8,18 @@ const store = useCardsStore();
 const { todoCards, doingCards, doneCards } = storeToRefs(store)
 </script>
 
+<!-- add dual slider -->
 <template>
-  <BoardList title="To do" :cards="todoCards" />
-  <BoardList title="Doing" :cards="doingCards" />
-  <BoardList title="Done" :cards="doneCards" />
+  <div class="boards">
+    <BoardList title="To do" :cards="todoCards" />
+    <BoardList title="Doing" :cards="doingCards" />
+    <BoardList title="Done" :cards="doneCards" />
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.boards {
+  display: flex;
+  justify-content: space-around;
+}
+</style>

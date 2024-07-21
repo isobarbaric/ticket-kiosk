@@ -35,10 +35,8 @@ async function deleteCard() {
 
 <template>
   <div class="card">
-    <div v-if="!allowEdit">
-      <div v-on:click="toggleEdit()">
-        {{ cardText }}
-      </div>
+    <div v-if="!allowEdit" v-on:click="toggleEdit()">
+      {{ cardText }}
       <button v-on:click="deleteCard">&#x2715;</button>
     </div>
     <div v-if="allowEdit">
@@ -50,4 +48,14 @@ async function deleteCard() {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.card {
+  border: 2px solid #b2badf;
+  margin: 1em 0;
+  padding: 1em;
+  color: #282828;
+  background-color: #fbf1c8;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+</style>

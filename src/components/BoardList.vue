@@ -10,46 +10,58 @@ const props = defineProps({
 
 const store = useCardsStore();
 
-const openCardTextBox = ref(false)
-const newCardText = ref('')
+const openCardTextBox = ref(false);
+const newCardText = ref("");
 
-const emptyTextBox = computed(() => newCardText.value.length == 0)
+const emptyTextBox = computed(() => newCardText.value.length == 0);
 
 const toggleCardTextBox = () => {
   openCardTextBox.value = !openCardTextBox.value;
-}
+};
 
 function createCard() {
-  toggleCardTextBox()
+  toggleCardTextBox();
   store.addCard(props.title, newCardText.value);
-  
   // clear the text box
-  newCardText.value = ''
+  newCardText.value = "";
 }
 </script>
 
 <template>
-  <div class="list">
-    <h2 class="header">
+  <div class="board">
+    <div class="header">
       {{ title }}
-    </h2>
-    <BoardCard
-      v-for="card in cards"
-      :key="card.id"
-      :id="card.id"
-    />
+    </div>
+    <BoardCard v-for="card in cards" :key="card.id" :id="card.id" />
     <div class="footer">
       <button v-if="!openCardTextBox" v-on:click="toggleCardTextBox()">
         + Add a card
       </button>
       <div v-if="openCardTextBox">
-        <input type="text" v-model="newCardText" placeholder="Card text"/>
-        <button v-on:click="createCard" :disabled="emptyTextBox">
-          Submit
-        </button>
+        <input type="text" v-model="newCardText" placeholder="Card text" />
+        <button v-on:click="createCard" :disabled="emptyTextBox">Submit</button>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.board {
+  background-color: #f2e5bd;
+  padding: 1em;
+}
+
+.header {
+  font-size: 2em;
+  font-weight: 650;
+}
+
+button {
+  color: #7c7065;
+}
+
+.footer {
+  background-color: #f2e5bd;
+  color: #7c7065;
+}
+</style>

@@ -19,7 +19,17 @@ export const useCardsStore = defineStore('kanban-cards', () => {
   const doingCards = computed(() => cards.value.filter(card => card.category === "Doing"))
   const doneCards = computed(() => cards.value.filter(card => card.category === "Done"))
 
+  const colorMode = ref('dark')
+
   // functions
+  const toggleColor = () => {
+    if (colorMode.value === 'dark') {
+      colorMode.value = 'light'
+    } else {
+      colorMode.value = 'dark'
+    }
+  }
+
   const getCard = (id) => {
     return cards.value.find(card => card.id === id)
   }
@@ -70,5 +80,5 @@ export const useCardsStore = defineStore('kanban-cards', () => {
     cards.value = cards.value.filter(card => card.id !== id);
   }
 
-  return { cards, todoCards, doingCards, doneCards, getCard, updateCard, addCard, deleteCard }
+  return { cards, todoCards, doingCards, doneCards, toggleColor, getCard, updateCard, addCard, deleteCard }
 })
