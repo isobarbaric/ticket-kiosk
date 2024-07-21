@@ -3,6 +3,8 @@ import { ref, computed, watch } from 'vue';
 import { defineStore } from 'pinia';
 import cardData from './cards.json';
 // import axios from 'axios';
+// import { db } from '../firebase';
+import { v4 as uuidv4 } from 'uuid';
 
 export const useCardsStore = defineStore('kanban-cards', () => {
   // const cards = ref(cardData)
@@ -42,9 +44,15 @@ export const useCardsStore = defineStore('kanban-cards', () => {
     cards.value[index].text = updatedText;
   }
 
-  // const addCard = (card) => {
-  //   cards.value.push(card);
-  // };
+  const addCard = (newCardTitle, newCardText) => {
+    const newCard = {
+      id: uuidv4(),
+      category: newCardTitle,
+      text: newCardText
+    }
+    console.log('adding card...', newCard)
+    cards.value.push(newCard);
+  };
 
   // function deleteCard(id) {
   //   cards.value = cards.value.filter(card => card.id !== id)
@@ -62,5 +70,5 @@ export const useCardsStore = defineStore('kanban-cards', () => {
     }
   });
 
-  return { cards, todoCards, doingCards, doneCards, getCard, updateCard }
+  return { cards, todoCards, doingCards, doneCards, getCard, updateCard, addCard }
 })
