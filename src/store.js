@@ -7,7 +7,10 @@ export const useCardsStore = defineStore('kanban-cards', () => {
   // load cards from api
   const cards = ref([])
   onMounted(async () => {
-    const querySnapshot = await getDocs(cardsRef);
+    const querySnapshot = await getDocs(cardsRef)
+      .catch((error) => {
+        throw new Error(`Error getting cards: ${error}`);
+      });
     cards.value = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   })
 
@@ -26,21 +29,20 @@ export const useCardsStore = defineStore('kanban-cards', () => {
     if (index === -1) {
       throw new Error(`Card with id ${id} not found`);
     }
-  
-    // avoid making unnecessary writes to the database
-    // if (updatedText === cards.value[index].text) {
-    //   console.log('no need to update')
-    //   return
-    // }
-
+    if (updatedText === cards.value[index].text) {
+      // avoid making unnecessary writes to the database
+      return
+    }
     const cardCategory = cards.value[index].category;
     const cardDocRef = doc(cardsRef, id);
     const updatedCard = {
       category: cardCategory,
       text: updatedText
     }
-    await updateDoc(cardDocRef, updatedCard);
-    
+    await updateDoc(cardDocRef, updatedCard)
+      .catch((error) => {
+        throw new Error(`Error updating card with ${id}: ${error}`);
+      });
     // console.log('card before update: ', cards.value[index])
     cards.value[index].text = updatedText;
     // console.log('card after update: ', cards.value[index])
@@ -52,13 +54,19 @@ export const useCardsStore = defineStore('kanban-cards', () => {
       text: newCardText
     }
     console.log('adding card...', newCard)
-    const docRef = await addDoc(cardsRef, newCard);
+    const docRef = await addDoc(cardsRef, newCard)
+      .catch((error) => {
+        throw new Error(`Error adding new card with text ${newCardText}: ${error}`);
+      });
     cards.value.push({ id: docRef.id, ...newCard });
   }
 
   async function deleteCard(id) {
     const cardDocRef = doc(cardsRef, id);
-    await deleteDoc(cardDocRef);
+    await deleteDoc(cardDocRef)
+      .catch((error) => {
+        throw new Error(`Error deleting card with ${id}: ${error}`);
+      });
     cards.value = cards.value.filter(card => card.id !== id);
   }
 
