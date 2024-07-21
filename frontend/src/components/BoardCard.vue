@@ -7,9 +7,7 @@ const props = defineProps({
 });
 
 const store = useCardsStore();
-
 const currentCard = computed(() => store.getCard(props.id))
-// console.log('current card: ', currentCard.value)
 
 // setup ref on cardText to create v-model
 const cardText = ref(currentCard.value.text);
@@ -17,12 +15,12 @@ const cardText = ref(currentCard.value.text);
 // setup ref to toggle between edit and save mode
 let allowEdit = ref(false)
 
-function editCard() {
-  allowEdit.value = true
+const toggleEdit = () => {
+  allowEdit.value = !allowEdit.value
 }
 
-function saveCard() {
-  allowEdit.value = false
+function saveChanges() {
+  toggleEdit()
 
   console.log('before: ', currentCard.value)
   store.updateCard(props.id, cardText.value)
@@ -32,12 +30,12 @@ function saveCard() {
 
 <template>
   <div class="card">
-    <div v-if="!allowEdit" v-on:click="editCard">
+    <div v-if="!allowEdit" v-on:click="toggleEdit()">
       {{ cardText }}
     </div>
     <div v-if="allowEdit">
       <input type="text" v-model="cardText" />
-      <button v-on:click="saveCard">Submit</button>
+      <button v-on:click="saveChanges">Submit</button>
     </div>
   </div>
 </template>

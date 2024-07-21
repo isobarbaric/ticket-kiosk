@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "category": "To do",
+        "text": "Buy groceries"
+    },
+    {
+        "id": 2,
+        "category": "Doing",
+        "text": "Throw out trash"
+    },
+    {
+        "id": 3,
+        "category": "Done",
+        "text": "Buy books"
+    },
+    {
+        "id": 4,
+        "category": "To do",
+        "text": "Complete assignment"
+    },
+    {
+        "id": 5,
+        "category": "Doing",
+        "text": "Wash the car"
+    },
+    {
+        "id": 6,
+        "category": "Done",
+        "text": "Call plumber"
+    },
+    {
+        "id": 7,
+        "category": "To do",
+        "text": "Plan vacation"
+    },
+    {
+        "id": 8,
+        "category": "Doing",
+        "text": "Organize office"
+    },
+    {
+        "id": 9,
+        "category": "Done",
+        "text": "Renew subscription"
+    },
+    {
+        "id": 10,
+        "category": "To do",
+        "text": "Schedule meeting"
+    }
+]

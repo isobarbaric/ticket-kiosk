@@ -1,11 +1,12 @@
 <script setup>
 import { useCardsStore } from '../store';
+import { storeToRefs } from 'pinia'
 
 const store = useCardsStore();
-// const { cards } = storeToRefs(store);
+const { cards } = storeToRefs(store);
 
 function createCard() {
-  console.log(store.cardLength)
+  console.log('total cards: ', cards.value.length)
 }
 </script>
 
