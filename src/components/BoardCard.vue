@@ -6,8 +6,10 @@ const props = defineProps({
   id: { type: Number, required: true }
 });
 
-const { getCard, updateCard } = useCardsStore();
-const currentCard = computed(() => getCard(props.id))
+const store = useCardsStore();
+
+const currentCard = computed(() => store.getCard(props.id))
+// console.log('current card: ', currentCard.value)
 
 // setup ref on cardText to create v-model
 const cardText = ref(currentCard.value.text);
@@ -17,27 +19,15 @@ let allowEdit = ref(false)
 
 function editCard() {
   allowEdit.value = true
-  // console.log('before, cardText: ', cardText.value)
 }
 
 function saveCard() {
   allowEdit.value = false
-  // console.log('after, cardText: ', cardText.value)
 
-  // console.log('before cards :', cards.value)
-  updateCard(props.id, cardText.value)
-  // console.log('after cards :', cards.value)
-  // console.log('cards :', store.cards)
-
-  // console.log('previous: ', store.cards)
-  // currentCard.value.text = cardText.value;
-  // console.log('after: ', store.cards)
-  // store.updateCard(props.id, cardText.value)
+  console.log('before: ', currentCard.value)
+  store.updateCard(props.id, cardText.value)
+  console.log('after: ', currentCard.value)
 }
-
-// function handleEscape() {
-//   allowEdit.value = false;
-// }
 </script>
 
 <template>

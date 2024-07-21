@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { defineStore } from 'pinia';
 import cardData from './cards.json';
 
@@ -9,44 +9,40 @@ export const useCardsStore = defineStore('kanban-cards', () => {
   const todoCards = computed(() => cards.value.filter(card => card.category === "To do"))
   const doingCards = computed(() => cards.value.filter(card => card.category === "Doing"))
   const doneCards = computed(() => cards.value.filter(card => card.category === "Done"))
+  // const cardLength = computed(() => cards.value.length)
 
-  const cardLength = computed(() => cards.value.length)
-
-  // methods
-  const getCard = (id) => {
+  function getCard(id) {
     return cards.value.find(card => card.id === id)
-  };
+  }
+
+  function updateCard(id, updatedText) {
+    // why does cards.value change before I update it
+    // console.log('updating cards: ', cards.value)
+    const index = cards.value.findIndex(card => card.id === id);
+    if (index === -1) {
+      throw new Error(`Card with id ${id} not found`);
+    }
+    cards.value[index].text = updatedText;
+  }
 
   // const addCard = (card) => {
   //   cards.value.push(card);
-  //   saveCards();
   // };
-
-  // const updateCard = watch(cards, () => {
-  //   console.log('updating cards')
-  //   saveCards()
-  // });
-
-  const updateCard = (id, updatedText) => {
-    console.log('updating card: ', cards.value)
-    const index = cards.value.find(card => card.id === id);
-    if (index !== -1) {
-      cards.value[index].text = updatedText;
-      // saveCards();
-    }
-    throw new Error(`Card with id ${id} not found`);
-  };
 
   // function deleteCard(id) {
   //   cards.value = cards.value.filter(card => card.id !== id)
-  //   saveCards()
   // }
 
-  // function saveCards() {
-  //   localStorage.setItem('cards', JSON.stringify(cards.value))
-  // }
+  watch(cards.value, () => {
+    console.log('saving cards...', cards.value)
+    // TODO: send to a database instead of local storage
+    try {
+      localStorage.setItem('cards', JSON.stringify(cards.value));
+      console.log('cards successfully saved');
+    } catch (error) {
+      console.error('error saving cards', error);
+    }
+  });
 
-  // return { cards, todoCards, doingCards, doneCards, cardLength, getCard, saveCards }
-  // return { cards, todoCards, doingCards, doneCards, cardLength, getCard, updateCard, saveCards }
-  return { cards, todoCards, doingCards, doneCards, cardLength, getCard, updateCard }
+  return { cards, todoCards, doingCards, doneCards, getCard, updateCard }
 })
