@@ -7,10 +7,10 @@ const props = defineProps({
 });
 
 const store = useCardsStore();
-const currentCard = computed(() => store.getCard(props.id))
+const currentCard = store.getCard(props.id)
 
 // setup ref on cardText to create v-model
-const cardText = ref(currentCard.value.text);
+const cardText = ref(currentCard.text);
 
 // setup ref to toggle between edit and save mode
 let allowEdit = ref(false)
@@ -25,12 +25,21 @@ async function saveChanges() {
   toggleEdit()
   await store.updateCard(props.id, cardText.value)
 }
+
+async function deleteCard() {
+  if (confirm(`Are you sure you  want to delete task "${currentCard.text}"?`)) {
+    await store.deleteCard(props.id)
+  }
+}
 </script>
 
 <template>
   <div class="card">
-    <div v-if="!allowEdit" v-on:click="toggleEdit()">
-      {{ cardText }}
+    <div v-if="!allowEdit">
+      <div v-on:click="toggleEdit()">
+        {{ cardText }}
+      </div>
+      <button v-on:click="deleteCard">&#x2715;</button>
     </div>
     <div v-if="allowEdit">
       <input type="text" v-model="cardText" v-on:keyup.esc="toggleEdit()" />

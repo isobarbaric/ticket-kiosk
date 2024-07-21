@@ -1,9 +1,10 @@
 <script setup>
-import BoardList from "./components/BoardList.vue";
-import { useCardsStore } from './store';
+import BoardList from "./components/BoardList.vue"
+import { useCardsStore } from './store'
 import { storeToRefs } from 'pinia'
 
 const store = useCardsStore();
+// changes to the cards variable are reflected by these refs
 const { todoCards, doingCards, doneCards } = storeToRefs(store)
 </script>
 

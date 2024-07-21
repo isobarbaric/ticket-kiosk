@@ -1,11 +1,10 @@
 import { ref, computed, onMounted } from 'vue';
 import { defineStore } from 'pinia';
 import { cardsRef } from './firebase';
-import { getDocs, addDoc, updateDoc, doc } from 'firebase/firestore';
+import { getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 
 export const useCardsStore = defineStore('kanban-cards', () => {
   // load cards from api
-  // is this the right way to do this?
   const cards = ref([])
   onMounted(async () => {
     const querySnapshot = await getDocs(cardsRef);
@@ -23,12 +22,17 @@ export const useCardsStore = defineStore('kanban-cards', () => {
   }
 
   async function updateCard(id, updatedText) {
-    // why does cards.value change before I update it
-    // console.log('updating cards: ', cards.value)
     const index = cards.value.findIndex(card => card.id === id);
     if (index === -1) {
       throw new Error(`Card with id ${id} not found`);
     }
+  
+    // avoid making unnecessary writes to the database
+    // if (updatedText === cards.value[index].text) {
+    //   console.log('no need to update')
+    //   return
+    // }
+
     const cardCategory = cards.value[index].category;
     const cardDocRef = doc(cardsRef, id);
     const updatedCard = {
@@ -49,14 +53,14 @@ export const useCardsStore = defineStore('kanban-cards', () => {
     }
     console.log('adding card...', newCard)
     const docRef = await addDoc(cardsRef, newCard);
-
-    // do I need to do this?
     cards.value.push({ id: docRef.id, ...newCard });
   }
 
-  // function deleteCard(id) {
-  //   cards.value = cards.value.filter(card => card.id !== id)
-  // }
+  async function deleteCard(id) {
+    const cardDocRef = doc(cardsRef, id);
+    await deleteDoc(cardDocRef);
+    cards.value = cards.value.filter(card => card.id !== id);
+  }
 
-  return { cards, todoCards, doingCards, doneCards, getCard, updateCard, addCard }
+  return { cards, todoCards, doingCards, doneCards, getCard, updateCard, addCard, deleteCard }
 })
