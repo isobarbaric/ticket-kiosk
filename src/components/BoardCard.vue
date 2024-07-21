@@ -21,15 +21,9 @@ const toggleEdit = () => {
   allowEdit.value = !allowEdit.value
 }
 
-function saveChanges() {
+async function saveChanges() {
   toggleEdit()
-
-  console.log('before: ', currentCard.value)
-  store.updateCard(props.id, cardText.value)
-  console.log('after: ', currentCard.value)
-  
-  // set the card text to the updated value
-  cardText.value = currentCard.value.text
+  await store.updateCard(props.id, cardText.value)
 }
 </script>
 
@@ -39,7 +33,7 @@ function saveChanges() {
       {{ cardText }}
     </div>
     <div v-if="allowEdit">
-      <input type="text" v-model="cardText" />
+      <input type="text" v-model="cardText" v-on:keyup.esc="toggleEdit()" />
       <button v-on:click="saveChanges" :disabled="emptyTextBox">
         Submit
       </button>
