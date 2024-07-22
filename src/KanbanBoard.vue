@@ -20,6 +20,7 @@ const { todoCards, doingCards, doneCards } = storeToRefs(store)
 <style scoped>
 .boards {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  margin: 3em;
 }
 </style>
