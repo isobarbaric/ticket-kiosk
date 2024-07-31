@@ -27,6 +27,7 @@ async function saveChanges() {
 }
 
 async function deleteCard() {
+  toggleEdit()
   if (confirm(`Are you sure you  want to delete task "${currentCard.text}"?`)) {
     await store.deleteCard(props.id)
   }
@@ -40,12 +41,16 @@ async function deleteCard() {
         {{ cardText }}
       </div>
       <div class="delete-btn">
-        <button v-on:click="deleteCard">&#x2715;</button>
+        <button v-on:click="deleteCard">
+          <font-awesome-icon icon="xmark" />
+        </button>
       </div>
     </div>
-    <div class="card-input" v-if="allowEdit">
-      <input type="text" v-model="cardText" v-on:keyup.esc="toggleEdit()" />
-      <button v-on:click="saveChanges" :disabled="emptyTextBox">✔</button>
+    <div class="text-box" v-if="allowEdit">
+      <textarea class="card-input" type="text" v-model="cardText" />
+      <button v-on:click="saveChanges" :disabled="emptyTextBox">
+        <font-awesome-icon icon="check" />
+      </button>
     </div>
   </div>
 </template>
@@ -60,8 +65,27 @@ async function deleteCard() {
   border-radius: 0.4em; 
   padding: 0.1em;
   margin-bottom: 0.3em;
-  width: 100%;
-  overflow: auto;
+}
+
+button {
+  border: none;
+  /* padding: 0.3em; */
+}
+
+button:hover {
+  background-color: #ebd9b3;
+  border-radius: 0.2em;
+}
+
+font-awesome-icon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: #fbf1c8;
+}
+
+font-awesome-icon:hover {
+  color: #ebd9b3;
 }
 
 .card-body {
@@ -80,7 +104,22 @@ async function deleteCard() {
   flex: 1;
 }
 
-input {
+.text-box {
+  display: flex;
   border: none;
+}
+
+textarea {
+  padding: 0.1em;
+}
+
+.card-input {
+  flex: 9;
+  white-space: pre-wrap;
+  padding: 0.1em;
+}
+
+.submit-btn {
+  flex: 1;
 }
 </style>

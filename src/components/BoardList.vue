@@ -27,7 +27,6 @@ function createCard() {
 }
 
 // function hoverOverFooter() {
-
 // }
 </script>
 
@@ -43,13 +42,17 @@ function createCard() {
     </div>
     <div class="list-body">
       <BoardCard v-for="card in cards" :key="card.id" :id="card.id" />
-      <div class="footer">
-        <button v-if="!openCardTextBox" v-on:click="toggleCardTextBox()">
+      <div class="footer" v-if="!openCardTextBox">
+        <button class="add-card" v-on:click="toggleCardTextBox()">
           + Add a card
         </button>
-        <div v-if="openCardTextBox">
-          <input type="text" v-model="newCardText" placeholder="Card text" />
-          <button class="submit-btn" v-on:click="createCard" :disabled="emptyTextBox">✔</button>
+      </div>
+      <div class="footer" v-if="openCardTextBox">
+        <div class="text-box">
+          <textarea class="card-input" type="text" v-model="newCardText" placeholder="Card text" />
+          <button class="submit-btn" v-on:click="createCard" :disabled="emptyTextBox">
+            <font-awesome-icon icon="check" />
+          </button>
         </div>
       </div>
     </div>
@@ -83,6 +86,19 @@ function createCard() {
   border-radius: 0.7em;
 }
 
+.text-box {
+  display: flex;
+}
+
+.card-input {
+  flex: 9;
+  padding: 0;
+}
+
+.submit-btn {
+  flex: 1;
+}
+
 button {
   border: none;
   background-color: #f2e5bd;
@@ -93,10 +109,18 @@ button {
   border-radius: 0.4em;
   padding: 0.6em;
   margin: 0.05em;
-  font-size: 1.2em;
+  font-size: 1.1em;
   background-color: #f2e5bd;
   color: #7c7065;
   text-align: center;
+}
+
+/* .add-card {
+
+} */
+
+.add-card:hover {
+  background-color: #ebd9b3;
 }
 
 .footer:hover {

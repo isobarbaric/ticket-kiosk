@@ -5,7 +5,16 @@
   /* font-optical-sizing: auto; */
   font-style: normal;
 }
-  /* font-weight: <weight>; */
+
 body {
   height: 100%;
+}
+
+/* removing all preset styles from textarea */
+textarea {
+  border: none;
+  overflow: auto;
+  background-color: transparent;
+  resize: none;
+  outline: none;
 }
