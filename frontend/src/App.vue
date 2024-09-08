@@ -5,11 +5,26 @@ const username = ref('');
 const password = ref('');
 const isLoggedIn = ref(false);
 
+// const backendUrl = 'http://localhost:3000';
+
 // TODO: redirect to boards page after login (new component)
 // create a useBoardsStore()
-function processLogin() {
-  console.log('Logging in as', username.value, 'with password', password.value);
-  isLoggedIn.value = true;
+async function processLogin() {
+  // console.log('Logging in as', username.value, 'with password', password.value);
+  const response = await fetch('/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      username: username.value,
+      password: password.value
+    })
+  });
+
+  console.log(response.json());
+
+  isLoggedIn.value = response.ok;
   // store.fetchCards();
 }
 </script>
